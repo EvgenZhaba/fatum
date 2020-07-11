@@ -11,6 +11,7 @@ python -m venv fatum
 Будет создана папка fatum в текущей папке.
 
 2. Активируем виртуальное окружение
+
 Для Windows:
 ```
 fatum\Scripts\activate
