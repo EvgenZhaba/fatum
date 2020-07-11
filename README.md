@@ -16,7 +16,7 @@ python -m venv fatum
 ```
 fatum\Scripts\activate
 ```
-Для linux:
+Для Linux:
 ```
 source fatum/bin/activate
 ```
@@ -38,7 +38,7 @@ python guifatum.py
 ```
 fatum\Scripts\deactivate
 ```
-Для linux:
+Для Linux:
 ```
 deactivate
 ```
