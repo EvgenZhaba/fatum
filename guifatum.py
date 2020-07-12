@@ -2,12 +2,13 @@
 """
 EvgenZhaba
 
-GUI v3 для модуля fatum
+GUI v4 для модуля fatum
 
 Реализует:
 
       Обращения к модулю fatum, использование генераторов псевдослучайных и квантово случайных чисел.
       Загрузку данных из конфига, создаётся при первом запуске.
+      Загрузку изображения как карты.
       Сохранение полученных координат как изображения в файл result.png
       ЛКМ - получение координаты в GUI по клику на нужную точку и запись её в текстовый файл result.txt как ссылку на гугл карты.
       ПКМ - проведение одной итерации сужения радиуса.
@@ -16,6 +17,7 @@ GUI v3 для модуля fatum
 
 При первом запуске программа создаёт стандартный конфиг, и делает вычисления по нему.
 Впоследствии исходные данные в конфиге можно изменить.
+Также, если в папке есть изображение "input.png", то программа загружает его в качестве фона. Например, можно загрузить карту любимой игры, и сгенерировать точки для неё.
 
       Алгоритм поиска аттракторов и репеллеров.
       
@@ -232,6 +234,13 @@ if __name__ == "__main__":
     Выполняется при запуске модуля, отрисовка GUI
     """
     
+    try:
+        image = Image.open("input.png")
+        (WX, WY) = image.size
+    except:
+        image = Image.new("RGB", (WX,WY), (255,255,255))
+    draw = ImageDraw.Draw(image)   
+    
     root = Tk()
     root.minsize(WX, WY)
     root.resizable(width=False, height=False)
@@ -242,14 +251,10 @@ if __name__ == "__main__":
     root.bind("<Button-1>", lambda event,c=canvas: leftclick(event, c))
     root.bind("<Button-2>", lambda event,c=canvas: centerclick(event, c))
     root.bind("<Button-3>", lambda event,c=canvas: rightclick(event, c))
-    
-    image = Image.new("RGB", (WX,WY), (255,255,255))
-    draw = ImageDraw.Draw(image)
-    
+   
     calculate(canvas)
-
+   
     im = ImageTk.PhotoImage(file="result.png")
     canvas.create_image(0, 0, anchor=NW, image=im, tag="canv")
-
     
     root.mainloop()
